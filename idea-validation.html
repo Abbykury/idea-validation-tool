@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idea Validation Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+
+        .question {
+            margin: 20px 0;
+        }
+
+        .question p {
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .question input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .score {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Idea Validation Tool</h1>
+        <form id="validationForm">
+            <div class="question">
+                <p>1. Is the problem painful enough that people are already spending money to solve it?</p>
+                <input type="radio" name="q1" value="1"> Yes<br>
+                <input type="radio" name="q1" value="0"> No<br>
+            </div>
+
+            <div class="question">
+                <p>2. Is your solution significantly better than existing alternatives?</p>
+                <input type="radio" name="q2" value="1"> Yes<br>
+                <input type="radio" name="q2" value="0"> No<br>
+            </div>
+
+            <div class="question">
+                <p>3. Are people actively looking for this?</p>
+                <input type="radio" name="q3" value="1"> Yes<br>
+                <input type="radio" name="q3" value="0"> No<br>
+            </div>
+
+            <div class="question">
+                <p>4. Are there existing competitors successfully making money in this space?</p>
+                <input type="radio" name="q4" value="1"> Yes<br>
+                <input type="radio" name="q4" value="0"> No<br>
+            </div>
+
+            <div class="question">
+                <p>5. Do you have a clear revenue model?</p>
+                <input type="radio" name="q5" value="1"> Yes<br>
+                <input type="radio" name="q5" value="0"> No<br>
+            </div>
+
+            <div class="question">
+                <p>6. Are potential customers willing to pay a price that gives you healthy margins?</p>
+                <input type="radio" name="q6" value="1"> Yes<br>
+                <input type="radio" name="q6" value="0"> No<br>
+            </div>
+
+            <div class="question">
+                <p>7. Do you or your network have the skills/connections to execute this without needing massive funding?</p>
+                <input type="radio" name="q7" value="1"> Yes<br>
+                <input type="radio" name="q7" value="0"> No<br>
+            </div>
+
+            <div class="question">
+                <p>8. Can you launch an MVP in under 3 months?</p>
+                <input type="radio" name="q8" value="1"> Yes<br>
+                <input type="radio" name="q8" value="0"> No<br>
+            </div>
+
+            <div class="question">
+                <p>9. Do you have something unique that competitors can’t easily copy?</p>
+                <input type="radio" name="q9" value="1"> Yes<br>
+                <input type="radio" name="q9" value="0"> No<br>
+            </div>
+
+            <div class="question">
+                <p>10. Would your customers choose you over an established competitor?</p>
+                <input type="radio" name="q10" value="1"> Yes<br>
+                <input type="radio" name="q10" value="0"> No<br>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="calculateScore()">Submit</button>
+
+            <div class="score" id="score"></div>
+            <div class="result" id="result"></div>
+        </form>
+    </div>
+
+    <script>
+        function calculateScore() {
+            let score = 0;
+            for (let i = 1; i <= 10; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                for (const radio of radios) {
+                    if (radio.checked && radio.value === "1") {
+                        score += 1;
+                    }
+                }
+            }
+
+            const scoreDiv = document.getElementById("score");
+            const resultDiv = document.getElementById("result");
+
+            scoreDiv.textContent = `Your Score: ${score}/10`;
+
+            if (score >= 8) {
+                resultDiv.innerHTML = "✅ <strong>Green Light!</strong> This idea has strong potential. Move forward.";
+            } else if (score >= 6) {
+                resultDiv.innerHTML = "⚠️ <strong>Yellow Flag!</strong> Needs tweaking before investing more time.";
+            } else {
+                resultDiv.innerHTML = "❌ <strong>Red Flag!</strong> Drop it and move on.";
+            }
+        }
+    </script>
+</body>
+</html>
